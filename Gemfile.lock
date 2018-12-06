@@ -1,0 +1,17 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    chronic (0.10.2)
+    colorize (0.8.1)
+    round_robin_tournament (0.0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  chronic (~> 0.10.2)
+  colorize
+  round_robin_tournament (~> 0.0.1)
+
+BUNDLED WITH
+   1.16.5
