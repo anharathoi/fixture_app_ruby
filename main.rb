@@ -1,6 +1,7 @@
 require 'round_robin_tournament'
 require 'colorize'
-require "chronic"
+require 'chronic'
+require 'pry'
 
 # Team data
 team_1 = {
@@ -37,22 +38,48 @@ team_8 = {
 }
 teams = [team_1, team_2, team_3, team_4, team_5, team_6, team_7, team_8]
 
-matches = RoundRobinTournament.schedule(teams.shuffle)
+##### Creating team pairs for each game with round_robin gem
+def create_pairs(teams)
+  return RoundRobinTournament.schedule(teams.shuffle)
+end
 
-def make_fixture(array) 
-  puts "What day does this season begin?(e.g 01 january 2020 or 01/01/2019 or 01 jan)"
-  fixture = []
-  dateinput = gets.chomp
-  a_day = 60 * 60 * 24 # secods in a day to use later
-  season_start_date = Chronic.parse("#{dateinput.downcase}")
-  while season_start_date.wday < 6
-    season_start_date = season_start_date += 1 # makes start date the next saturday
+##### Parsing the date to set the rounds a week apart from one another #####
+
+def date_parser(date)
+  date = Chronic.parse("#{date.downcase}")
+  while date.wday < 6
+    date = date += 1 # makes start date the next saturday from the input date
   end
-  # p season_start_date.strftime('%A, %d %b %Y %l:%M %p')
-  array.each_with_index do |round, c|
-    round_start_date = season_start_date + a_day * c * 7
-    round_number = c + 1
+  return date
+end
 
+
+def print_fixture(fixture)
+  fixture.each_with_index do |game|
+      puts """
+      =========== Round: #{game[:round]} | Game: #{game[:game]} ===========
+
+      Date/Time: #{game[:date_time]}
+      Location: #{game[:location]}
+      Home Team: #{game[:home_team].colorize(:green)}
+      VS
+      Away Team: #{game[:away_team].colorize(:blue)}
+      "
+  end
+end
+
+
+####### Making the Fixture #######
+
+def make_fixture(teams, date) 
+  pairs = create_pairs(teams)
+  start_date = date_parser(date)
+  fixture = []
+  a_day = 60 * 60 * 24 # seconds in a day to use later
+
+  pairs.each_with_index do |round, c|
+    round_start_date = start_date + a_day * c * 7
+    round_number = c + 1
     round.each_with_index do |game, i|
       game_number = i + 1
       if i < round.length/2
@@ -73,23 +100,35 @@ def make_fixture(array)
       fixture << make_game
     end
   end
+  print_fixture(fixture)
   fixture
 end
 
+## Getting the start date ##
+puts "What day does this season begin?(e.g 01 january 2020 or mm/dd/yyyy or 01 jan)"
+dateinput = gets.chomp
 
-def print_fixture(matchArray)
-  fixture = make_fixture(matchArray)
-  fixture.each_with_index do |game|
-      puts """
-      =========== Round: #{game[:round]} ===========
-      Game: #{game[:game]}
-      Location: #{game[:location]}
-      Home Team: #{game[:home_team].colorize(:green)}
-      VS
-      Away Team: #{game[:away_team].colorize(:blue)}
-      Date/Time: #{game[:date_time]}
-      "
+fixture = make_fixture(teams, dateinput)
+
+
+############# Find when your favourite Club is playing #############
+
+def get_info_on_club(fixture)
+  puts "See when your favourites are playing:(enter favourite club name)"
+  fav_club = gets.chomp
+  all_fav_matches = fixture.map do |game|
+    if game[:home_team].downcase == fav_club || game[:away_team].downcase == fav_club
+      game
+    end
+  end.compact
+
+  if all_fav_matches.empty?
+    puts "Did not match the database!"
+  else
+    puts all_fav_matches
   end
 end
 
-print_fixture(matches)
+# get_info_on_club(fixture)
+
+

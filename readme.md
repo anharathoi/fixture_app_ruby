@@ -14,3 +14,6 @@ This is a terminal app that generates fixtures, the starting date is set by the 
 - The rounds are set one week apart from each other
 - All the games are set on either Saturday or Sunday
 - The home teams are diplayed in green and the away teams in blue
+
+### Available Functions
+- get_info_on_club(fixture): if the fixture is passed in this function asks for your favourite team and displays only the games they are playing in the tournament
