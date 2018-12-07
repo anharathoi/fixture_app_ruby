@@ -104,7 +104,7 @@ def make_fixture(teams, date)
   fixture
 end
 
-## Getting the start date ##
+# Getting the start date ##
 puts "What day does this season begin?(e.g 01 january 2020 or mm/dd/yyyy or 01 jan)"
 dateinput = gets.chomp
 
@@ -117,7 +117,7 @@ def get_info_on_club(fixture)
   puts "See when your favourites are playing:(enter favourite club name)"
   fav_club = gets.chomp
   all_fav_matches = fixture.map do |game|
-    if game[:home_team].downcase == fav_club || game[:away_team].downcase == fav_club
+    if game[:home_team].downcase.include?(fav_club) || game[:away_team].downcase.include?(fav_club)
       game
     end
   end.compact
@@ -130,5 +130,3 @@ def get_info_on_club(fixture)
 end
 
 # get_info_on_club(fixture)
-
-
