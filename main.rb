@@ -5,36 +5,36 @@ require 'pry'
 
 # Team data
 team_1 = {
-  name: "Manchester United",
-  location: "Old Trafford"
+  name: 'Manchester United',
+  location: 'Old Trafford'
 }
 team_2 = {
-  name: "Real Madrid",
-  location: "Santiago Bernabéu Stadium"
+  name: 'Real Madrid',
+  location: 'Santiago Bernabéu Stadium'
 }
 team_3 = {
-  name: "Barcelona",
-  location: "Camp Nou"
+  name: 'Barcelona',
+  location: 'Camp Nou'
 }
 team_4 = {
-  name: "Bayern Munich",
-  location: "Allianz Arena"
+  name: 'Bayern Munich',
+  location: 'Allianz Arena'
 }
 team_5 = {
-  name: "Manchester City",
-  location: "Etihad Stadium"
+  name: 'Manchester City',
+  location: 'Etihad Stadium'
 }
 team_6 = {
-  name: "Arsenal",
-  location: "Emirates Stadium"
+  name: 'Arsenal',
+  location: 'Emirates Stadium'
 }
 team_7 = {
-  name: "Chelsea",
-  location: "Stamford Bridge"
+  name: 'Chelsea',
+  location: 'Stamford Bridge'
 }
 team_8 = {
-  name: "Liverpool",
-  location: "Anfield"
+  name: 'Liverpool',
+  location: 'Anfield'
 }
 teams = [team_1, team_2, team_3, team_4, team_5, team_6, team_7, team_8]
 
